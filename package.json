@@ -1,0 +1,33 @@
+{
+  "name": "aspect",
+  "private": true,
+  "scripts": {
+    "test": "standard -v --fix && flow && ava"
+  },
+  "dependencies": {
+    "fs-extra": "^3.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.20.0",
+    "babel-preset-diff": "^0.0.3",
+    "babel-register": "^6.24.1",
+    "flow-bin": "^0.48.0",
+    "get-port": "^3.1.0",
+    "node-fetch": "^1.7.1",
+    "node-promise-es6": "^0.3.2",
+    "selenium-adapter": "^0.2.2",
+    "standard-esnext": "^3.0.0"
+  },
+  "babel": {
+    "presets": [
+      "diff"
+    ]
+  },
+  "ava": {
+    "concurrency": 8,
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  }
+}
