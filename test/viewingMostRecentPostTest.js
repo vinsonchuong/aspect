@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { listen, subscribe, close as closeServer } from 'aspect/src/server'
-import respondToHttpRequest from 'aspect/src/respondToHttpRequest'
+import serve from 'aspect/src/serve'
+import { close as closeServer } from 'aspect/src/server'
 import {
   makeHeadlessChromeAdapter,
   close as closeBrowser,
@@ -11,8 +11,7 @@ import {
 } from 'selenium-adapter'
 
 test.beforeEach(async t => {
-  const server = await listen(8080)
-  subscribe(server, respondToHttpRequest)
+  const server = await serve()
   const browser = makeHeadlessChromeAdapter()
   t.context = { server, browser }
 })
@@ -23,9 +22,9 @@ test.afterEach.always(async t => {
   await closeServer(server)
 })
 
-test.serial('viewing the app over HTTP', async t => {
-  const { browser } = t.context
-  await navigate(browser, 'http://127.0.0.1:8080')
+test('viewing the app over HTTP', async t => {
+  const { server, browser } = t.context
+  await navigate(browser, `http://127.0.0.1:${server.port}`)
   const paragraph = await findElement(browser, 'p')
   t.is(await getText(paragraph), 'Hello World!')
 })

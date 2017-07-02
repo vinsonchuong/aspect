@@ -1,12 +1,14 @@
 /* @flow */
-import { Server } from 'http'
+import type { Server } from './'
+import * as http from 'http'
+import getPort from 'get-port'
 
-export default function(port: number): Promise<Server> {
-  const server = new Server()
-  server.listen(port)
-  return new Promise(resolve => {
-    server.on('listening', () => {
-      resolve(server)
-    })
+export default async function(optionalPort: ?number): Promise<Server> {
+  const port = optionalPort || (await getPort())
+  const httpServer = new http.Server()
+  httpServer.listen(port)
+  await new Promise(resolve => {
+    httpServer.on('listening', resolve)
   })
+  return { httpServer, port }
 }

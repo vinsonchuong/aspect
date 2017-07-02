@@ -1,13 +1,11 @@
 /* @flow */
 import test from 'ava'
-import getPort from 'get-port'
 import fetch from 'node-fetch'
 import { listen, close, subscribe } from 'aspect/src/server'
 
 test.beforeEach(async t => {
-  const port = await getPort()
-  const server = await listen(port)
-  t.context = { server, port }
+  const server = await listen()
+  t.context = { server }
 })
 
 test.afterEach.always(async t => {
@@ -16,16 +14,16 @@ test.afterEach.always(async t => {
 })
 
 test('responding to requests', async t => {
-  const { server, port } = t.context
+  const { server } = t.context
   subscribe(server, request => {
     t.is(request.method, 'GET')
-    t.is(request.url.pathname, '/')
+    t.is(request.url.href, `http://127.0.0.1:${server.port}/`)
     return `
       <!doctype html>
       <meta charset="utf-8">
     `
   })
-  const response = await request(`http://127.0.0.1:${port}`)
+  const response = await request(`http://127.0.0.1:${server.port}`)
   t.true(response.includes('html'))
 })
 

@@ -23,6 +23,7 @@ backend). I'll be adhering to test-driven development. I'll set up tooling for
 forcing the use of type annotations and automatically enforcing style
 conventions.
 
+#### Test-Driving a Static File Server
 My first test will ensure that I can start up a server on my development
 machine and see an empty HTML page.
 
@@ -305,4 +306,55 @@ test.serial('viewing the app over HTTP', async t => {
   const paragraph = await findElement(browser, 'p')
   t.is(await getText(paragraph), 'Hello World!')
 })
+```
+
+#### Starting the Static File Server Outside of Test
+I need to be able to view the application myself in a browser. The codebase will
+have to change to enable this usecase. Specifically, the test-setup logic inside
+of the integration test will need to be extracted for reuse.
+
+Echoing an article named
+"[First-Class Tests](http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html)"
+by Uncle Bob, production, test, and development usecases all fall under the
+same standards for quality. Hence, sharing code between the different sets of
+usecases should be fair game.
+
+```js
+/* @flow */
+import type { Server } from 'aspect/src/server'
+import { listen, subscribe } from 'aspect/src/server'
+import respondToHttpRequest from 'aspect/src/respondToHttpRequest'
+
+export async function serve(): Promise<Server> {
+  const server = await listen(8080)
+  subscribe(server, respondToHttpRequest)
+  return server
+}
+```
+
+The integration test always runs the server on port `8080`. Other tests use the
+`get-port` library to choose a random open port. A CLI for starting the server
+should have a default port that is configurable. A new concern is emerging that
+has multiple instances scattered throughout the code.
+
+Upon taking a look at all of the code locations where a port is selected, it's
+clear that port selection is always done prior to calling `listen` to start a
+server. I've decided to move the port selection logic into the `listen`
+function.
+
+```js
+/* @flow */
+import type { Server } from './'
+import * as http from 'http'
+import getPort from 'get-port'
+
+export default async function(optionalPort: ?number): Promise<Server> {
+  const port = optionalPort || (await getPort())
+  const httpServer = new http.Server()
+  httpServer.listen(port)
+  await new Promise(resolve => {
+    httpServer.on('listening', resolve)
+  })
+  return { httpServer, port }
+}
 ```

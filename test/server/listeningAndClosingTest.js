@@ -1,17 +1,14 @@
 /* @flow */
 import test from 'ava'
-import getPort from 'get-port'
 import { childProcess } from 'node-promise-es6'
 import { listen, close } from 'aspect/src/server'
 
 test('starting a server opens a listening socket and closing the server closes the socket', async t => {
-  const port = await getPort()
-
-  const server = await listen(port)
-  t.true(await listeningSocketsInclude(`:::${port}`))
+  const server = await listen()
+  t.true(await listeningSocketsInclude(`:::${server.port}`))
 
   await close(server)
-  t.false(await listeningSocketsInclude(`:::${port}`))
+  t.false(await listeningSocketsInclude(`:::${server.port}`))
 })
 
 async function listeningSocketsInclude(address: string): Promise<boolean> {
