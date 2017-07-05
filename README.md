@@ -1,4 +1,6 @@
 # Aspect
+[![Build Status](https://travis-ci.org/vinsonchuong/aspect.svg?branch=master)](https://travis-ci.org/vinsonchuong/aspect)
+
 Studying how to build web apps
 
 ## Development Practices
@@ -422,3 +424,17 @@ it's a good idea to backfill those tests so that when these libraries get built
 out further, I won't have to go back and backfill later. Furthermore, since
 these utilities are currently small, fully testing them would not take much
 time.
+
+#### Continuous Integration
+Since this is a conventional Node.js application, most CI services can install
+external dependencies and run tests for this project without much configuration.
+
+For this project, I'll be using Travis CI with the following configuration:
+
+```yml
+dist: trusty
+sudo: false
+language: node_js
+node_js: node
+cache: yarn
+```
