@@ -2,7 +2,8 @@
   "name": "aspect",
   "private": true,
   "scripts": {
-    "test": "standard -v --fix && flow && ava"
+    "test": "standard -v --fix && flow && ava",
+    "start": "node -r babel-register src/adapters/cli/serve.js"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",

@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import fetch from 'node-fetch'
-import { listen, close, subscribe } from 'aspect/src/server'
+import { listen, close, subscribe } from 'aspect/src/lib/server'
+import { request } from 'aspect/src/lib/client'
 
 test.beforeEach(async t => {
   const server = await listen()
@@ -26,8 +26,3 @@ test('responding to requests', async t => {
   const response = await request(`http://127.0.0.1:${server.port}`)
   t.true(response.includes('html'))
 })
-
-async function request(url: string): Promise<string> {
-  const response = await fetch(url)
-  return response.text()
-}

@@ -1,7 +1,6 @@
 /* @flow */
 import test from 'ava'
-import serve from 'aspect/src/serve'
-import { close as closeServer } from 'aspect/src/server'
+import { serve, close as closeServer } from 'aspect/src/adapters/server'
 import {
   makeHeadlessChromeAdapter,
   close as closeBrowser,

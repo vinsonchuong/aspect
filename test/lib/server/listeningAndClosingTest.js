@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { childProcess } from 'node-promise-es6'
-import { listen, close } from 'aspect/src/server'
+import { listen, close } from 'aspect/src/lib/server'
+import { getOpenSockets } from 'aspect/src/lib/cli'
 
 test('starting a server opens a listening socket and closing the server closes the socket', async t => {
   const server = await listen()
@@ -12,10 +12,6 @@ test('starting a server opens a listening socket and closing the server closes t
 })
 
 async function listeningSocketsInclude(address: string): Promise<boolean> {
-  const { stdout } = await childProcess.exec('ss -ltn')
-  return stdout
-    .split('\n')
-    .slice(1)
-    .map(line => line.split(/\s+/)[3])
-    .includes(address)
+  const openSockets = await getOpenSockets()
+  return openSockets.includes(address)
 }

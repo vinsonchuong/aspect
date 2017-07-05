@@ -1,5 +1,5 @@
 /* @flow */
-import type { Request, Response } from 'aspect/src/server'
+import type { Request, Response } from 'aspect/src/adapters/server'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 

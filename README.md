@@ -348,7 +348,7 @@ import type { Server } from './'
 import * as http from 'http'
 import getPort from 'get-port'
 
-export default async function(optionalPort: ?number): Promise<Server> {
+export async function listen(optionalPort: ?number): Promise<Server> {
   const port = optionalPort || (await getPort())
   const httpServer = new http.Server()
   httpServer.listen(port)
@@ -358,3 +358,67 @@ export default async function(optionalPort: ?number): Promise<Server> {
   return { httpServer, port }
 }
 ```
+
+To enable a CLI to configure the port, `listen` takes it as an optional
+parameter. `serve` now also takes an optional port parameter:
+
+```js
+/* @flow */
+import type { Server } from 'aspect/src/server'
+import { listen, subscribe } from 'aspect/src/server'
+import respondToHttpRequest from 'aspect/src/respondToHttpRequest'
+
+export default async function(port: ?number): Promise<Server> {
+  const server = await listen(port)
+  subscribe(server, respondToHttpRequest)
+  return server
+}
+```
+
+So far, I haven't given much thought to directory structure. Now that distinct
+groups of concerns have started to reveal themselves, I stand a chance at
+finding a directory structure that makes sense. So far, I've written utilities
+for managing an HTTP server, making HTTP requests, and exercising CLIs. Those
+utilities are essentially standalone libraries that can be extracted at any
+time. Then, there is code that adapts each library for easier use by the domain.
+
+* adapters
+  * cli
+    * serve.js
+  * server
+    * index.js
+    * serve.js
+* lib
+  * cli
+    * index.js
+    * kill.js
+    * spawn.js
+    * waitForInput.js
+  * client
+    * index.js
+    * request.js
+  * server
+    * close.js
+    * index.js
+    * listen.js
+    * Server.js
+    * subscribe.js
+* respondToHttpRequest.js
+
+The organization of test cases roughly follows the directory structure:
+
+* adapters
+  * cli
+    * serveTest.js
+* lib
+  * server
+    * listeningAndClosingTest.js
+    * respondingToRequestsTest.js
+* respondingToHttpRequestTest.js
+* viewingMostRecentPostTest.js
+
+Utilities used only in test cases are themselves currently untested. I figure
+it's a good idea to backfill those tests so that when these libraries get built
+out further, I won't have to go back and backfill later. Furthermore, since
+these utilities are currently small, fully testing them would not take much
+time.
