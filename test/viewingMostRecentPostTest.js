@@ -25,5 +25,5 @@ test('viewing the app over HTTP', async t => {
   const { server, browser } = t.context
   await navigate(browser, `http://127.0.0.1:${server.port}`)
   const paragraph = await findElement(browser, 'p')
-  t.is(await getText(paragraph), 'Hello World!')
+  t.is(await getText(paragraph), 'This is a blog post.')
 })
