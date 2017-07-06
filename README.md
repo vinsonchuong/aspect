@@ -439,7 +439,7 @@ node_js: node
 cache: yarn
 ```
 
-#### Deployment
+#### Continuous Deployment
 Pivotal Web Services provides cheap application instance hosting; so, until my
 application has more infrastructure requirements, I'll deploy the application
 there. Cloudfoundry is able to deal with the conventional Node.js application
