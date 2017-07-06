@@ -438,3 +438,12 @@ language: node_js
 node_js: node
 cache: yarn
 ```
+
+#### Deployment
+Pivotal Web Services provides cheap application instance hosting; so, until my
+application has more infrastructure requirements, I'll deploy the application
+there. Cloudfoundry is able to deal with the conventional Node.js application
+out of the box; so, only a little bit of configuration is necessary.
+
+Travis CI also supports continuous deployment to Cloud Foundry with a bit of
+configuration. I've set it up to deploy every passing commit.
