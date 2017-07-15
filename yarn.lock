@@ -1403,6 +1403,10 @@ decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
+dedent@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.7.0.tgz#2495ddbaf6eb874abb0e1be9df22d2e5a544326c"
+
 deep-equal@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
@@ -3578,9 +3582,9 @@ sax@>=0.6.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-selenium-adapter@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/selenium-adapter/-/selenium-adapter-0.2.2.tgz#e8e17f92c2c582173eabde8cdf9010b890047253"
+selenium-adapter@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/selenium-adapter/-/selenium-adapter-0.2.6.tgz#e1487544ef844c228032b2818d3fa25f6e65c7f0"
   dependencies:
     chromedriver "^2.30.1"
     css-to-xpath "^0.1.0"
@@ -3856,6 +3860,18 @@ tar@^2.1.1, tar@^2.2.1:
     block-stream "*"
     fstream "^1.0.2"
     inherits "2"
+
+temp-dir@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/temp-dir/-/temp-dir-1.0.0.tgz#0a7c0ea26d3a39afa7e0ebea9c1fc0bc4daa011d"
+
+tempy@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/tempy/-/tempy-0.1.0.tgz#8527413cd07100834fcc9cbb8242be95ba0e1fee"
+  dependencies:
+    pify "^2.3.0"
+    temp-dir "^1.0.0"
+    unique-string "^1.0.0"
 
 term-size@^0.1.0:
   version "0.1.1"

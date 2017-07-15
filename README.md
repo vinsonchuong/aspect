@@ -447,3 +447,92 @@ out of the box; so, only a little bit of configuration is necessary.
 
 Travis CI also supports continuous deployment to Cloud Foundry with a bit of
 configuration. I've set it up to deploy every passing commit.
+
+Now, with the application deployed and publicly accessible, on to the next
+feature!
+
+### Building out a Frontend and Backend
+> User can add blog posts
+
+This feature requires data persistence, which necessitates a backend API that
+mediates communication between a data store and the frontend.
+
+Let's start with an end-to-end test.
+
+```js
+/* @flow */
+import test from 'ava'
+import { serve, close as closeServer } from 'aspect/src/adapters/server'
+import {
+  makeHeadlessChromeAdapter,
+  close as closeBrowser,
+  navigate,
+  findElement,
+  click
+  getText
+} from 'selenium-adapter'
+
+test.beforeEach(async t => {
+  const server = await serve()
+  const browser = makeHeadlessChromeAdapter()
+  t.context = { server, browser }
+})
+
+test.afterEach.always(async t => {
+  const { server, browser } = t.context
+  await closeBrowser(browser)
+  await closeServer(server)
+})
+
+test('viewing the app over HTTP', async t => {
+  const { server, browser } = t.context
+  await navigate(browser, `http://127.0.0.1:${server.port}`)
+
+  const newPostLink = await findElement(browser, 'a', 'New Post')
+  await click(newPostLink)
+
+  const titleInput = await findElement(browser, 'input#title')
+  await fillIn(titleInput, 'New Blog Post')
+
+  const contentInput = await findElement(browser, 'textarea#content')
+  await fillIn(contentInput, 'New blog post content.')
+
+  const postButton = await findElement(browser, 'input[type="submit"]')
+  await click(postButton)
+
+  const title = await findElement(browser, 'article h1')
+  t.is(await getText(title), 'New Blog Post')
+
+  const content = await findElement(browser, 'article p')
+  t.is(await getText(content), 'New blog post content.')
+})
+```
+
+There's a common pattern in finding an element and then interacting with it. To
+capture this concept, it's time to write a browser lib. Also, to ensure that
+I'm not importing browser interaction utilities from multiple places, I'll be
+completely wrapping `selenium-adapter`.
+
+The refactored test is
+
+```js
+/* @flow */
+import test from 'ava'
+import { useBrowser, useServer } from 'aspect/test/helpers'
+import { navigate, clickOn, fillIn, read } from 'aspect/src/lib/browser'
+
+useBrowser()
+useServer()
+
+test('viewing the app over HTTP', async t => {
+  const { server, browser } = t.context
+  await navigate(browser, `http://127.0.0.1:${server.port}`)
+
+  await clickOn(browser, 'New Post')
+  await fillIn(browser, 'Title', 'New Blog Post')
+  await fillIn(browser, 'Content', 'New blog post content.')
+  await clickOn(browser, 'Post')
+
+  t.is(await read('article p'), 'New blog post content.')
+})
+```
