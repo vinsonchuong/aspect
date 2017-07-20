@@ -1,8 +1,8 @@
 /* @flow */
 import test from 'ava'
 import * as path from 'path'
-import { readFile } from 'fs-extra'
 import {
+  readFile,
   makeTmpDirectory,
   writeIntoDirectory,
   remove
