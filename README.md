@@ -536,3 +536,12 @@ test('viewing the app over HTTP', async t => {
   t.is(await read('article p'), 'New blog post content.')
 })
 ```
+
+#### Serving Static Content
+Serving a frontend application to a browser requires a more fully-featured
+static file server, one that can:
+
+* Serve arbitrary files from the file system
+* Allow the browser to cache unchanged files
+* Compress where appropriate
+* Serve multiple requests at once

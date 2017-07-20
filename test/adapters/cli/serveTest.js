@@ -9,13 +9,20 @@ test('manually starting the server', async t => {
 
   await waitForOutput(childProcess, 'Running server')
   const match = childProcess.stdout.match(/(http:.*)/)
-  if (match) {
-    const url = match[1]
-    const response = await request(url)
-    t.true(response.includes('<!doctype html>'))
-  } else {
+
+  if (!match) {
     t.fail()
+    return
   }
+
+  const response = await request({ method: 'GET', url: match[1] })
+
+  if (response.status !== 'OK') {
+    t.fail()
+    return
+  }
+
+  t.true(response.content.includes('<!doctype html>'))
 })
 
 test.afterEach(async t => {
