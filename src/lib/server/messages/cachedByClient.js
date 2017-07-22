@@ -6,10 +6,13 @@ export default function(
   httpRequest: http.IncomingMessage,
   response: Response
 ): boolean {
-  if (!('if-modified-since' in httpRequest.headers)) {
+  if (response.error || !('if-modified-since' in httpRequest.headers)) {
     return false
   }
 
   const cachedModified = new Date(httpRequest.headers['if-modified-since'])
-  return cachedModified >= response.modified
+  const responseModified = new Date(response.modified)
+  responseModified.setUTCMilliseconds(0)
+
+  return cachedModified >= responseModified
 }

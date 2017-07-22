@@ -6,6 +6,7 @@ type Request = { method: 'GET', url: string, modified?: Date }
 type Response =
   | { status: 'OK', content: string, type: 'html', modified: Date }
   | { status: 'Not Modified' }
+  | { status: 'Not Found' }
 
 export default async function(request: Request): Promise<Response> {
   const response = await fetch(request.url, {
@@ -15,16 +16,23 @@ export default async function(request: Request): Promise<Response> {
     }
   })
 
-  if (response.statusText === 'OK') {
-    return {
-      status: 'OK',
-      content: await response.text(),
-      type: mime.extension(response.headers.get('Content-Type')),
-      modified: new Date(response.headers.get('Last-Modified'))
-    }
-  } else {
-    return {
-      status: response.statusText
-    }
+  switch (response.statusText) {
+    case 'OK':
+      return {
+        status: 'OK',
+        content: await response.text(),
+        type: mime.extension(response.headers.get('Content-Type')),
+        modified: new Date(response.headers.get('Last-Modified'))
+      }
+    case 'Not Modified':
+      return {
+        status: 'Not Modified'
+      }
+    case 'Not Found':
+      return {
+        status: 'Not Found'
+      }
+    default:
+      throw new Error('Unexpected response status')
   }
 }

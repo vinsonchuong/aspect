@@ -4,16 +4,10 @@ import { URL } from 'url'
 import mime from 'mime'
 import { cachedByClient } from './messages'
 
-export type Request = {
-  method: 'GET',
-  url: URL,
-  modified?: Date
-}
-export type Response = {
-  content: string,
-  type: string,
-  modified: Date
-}
+export type Request = { method: 'GET', url: URL, modified?: Date }
+export type Response =
+  | { content: string, type: string, modified: Date }
+  | { error: 'Not Found' }
 
 export default function(
   server: Server,
@@ -25,7 +19,10 @@ export default function(
       url: new URL(httpRequest.url, `http://127.0.0.1:${server.port}`)
     })
 
-    if (cachedByClient(httpRequest, response)) {
+    if (response.error === 'Not Found') {
+      httpResponse.writeHead(404)
+      httpResponse.end()
+    } else if (cachedByClient(httpRequest, response)) {
       httpResponse.writeHead(304)
       httpResponse.end()
     } else {

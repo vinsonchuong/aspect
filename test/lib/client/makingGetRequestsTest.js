@@ -27,3 +27,12 @@ test('making a GET request for a resource that has not been modified', async t =
 
   t.is(response.status, 'Not Modified')
 })
+
+test('making a GET request for a resource that does not exist', async t => {
+  const response = await request({
+    method: 'GET',
+    url: 'http://httpstat.us/404'
+  })
+
+  t.is(response.status, 'Not Found')
+})

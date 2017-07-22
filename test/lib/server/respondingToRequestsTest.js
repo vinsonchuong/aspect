@@ -50,14 +50,26 @@ test('responding to requests for unmodified content', async t => {
     <meta charset="utf-8">
     `,
     type: 'html',
-    modified: new Date('2017-04-01')
+    modified: new Date('2017-04-01T00:00:00.999Z')
   }))
 
   const response = await request({
     method: 'GET',
     url: `http://127.0.0.1:${server.port}`,
-    modified: new Date('2017-04-01')
+    modified: new Date('2017-04-01T00:00:00.999Z')
   })
 
   t.is(response.status, 'Not Modified')
+})
+
+test('responding to requests for missing content', async t => {
+  const { server } = t.context
+  subscribe(server, request => ({ error: 'Not Found' }))
+
+  const response = await request({
+    method: 'GET',
+    url: `http://127.0.0.1:${server.port}`
+  })
+
+  t.is(response.status, 'Not Found')
 })
