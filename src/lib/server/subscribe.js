@@ -6,7 +6,7 @@ import { cachedByClient } from './messages'
 
 export type Request = { method: 'GET', url: URL, modified?: Date }
 export type Response =
-  | { content: string, type: string, modified: Date }
+  | { size: number, content: string, type: string, modified: Date }
   | { error: 'Not Found' }
 
 export default function(
@@ -28,6 +28,7 @@ export default function(
     } else {
       httpResponse.writeHead(200, {
         'Content-Type': mime.lookup(response.type),
+        'Content-Length': response.size,
         'Last-Modified': response.modified.toUTCString()
       })
       httpResponse.end(response.content)

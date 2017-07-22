@@ -4,7 +4,13 @@ import mime from 'mime'
 
 type Request = { method: 'GET', url: string, modified?: Date }
 type Response =
-  | { status: 'OK', content: string, type: 'html', modified: Date }
+  | {
+      status: 'OK',
+      size: number,
+      content: string,
+      type: 'html',
+      modified: Date
+    }
   | { status: 'Not Modified' }
   | { status: 'Not Found' }
 
@@ -20,6 +26,7 @@ export default async function(request: Request): Promise<Response> {
     case 'OK':
       return {
         status: 'OK',
+        size: Number(response.headers.get('Content-Length')),
         content: await response.text(),
         type: mime.extension(response.headers.get('Content-Type')),
         modified: new Date(response.headers.get('Last-Modified'))

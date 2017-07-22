@@ -13,8 +13,9 @@ test('making a GET request', async t => {
     return
   }
 
-  t.true(response.content.includes('Example Domain'))
   t.is(response.type, 'html')
+  t.is(response.size, 606)
+  t.true(response.content.includes('Example Domain'))
   t.deepEqual(response.modified, new Date('Fri, 09 Aug 2013 23:54:35 GMT'))
 })
 
