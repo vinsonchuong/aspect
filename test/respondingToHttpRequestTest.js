@@ -1,6 +1,8 @@
 /* @flow */
 import test from 'ava'
 import { URL } from 'url'
+import * as path from 'path'
+import { readFile } from 'aspect/src/lib/file'
 import respondToHttpRequest from 'aspect/src/respondToHttpRequest'
 
 test('responds to a request for root with index.html', async t => {
@@ -17,6 +19,20 @@ test('responds to a request for root with index.html', async t => {
   t.true(response.content.includes('<!doctype html>'))
   t.is(response.type, 'html')
   t.true(response.modified instanceof Date)
+})
+
+test('transfering binary data', async t => {
+  const response = await respondToHttpRequest({
+    method: 'GET',
+    url: new URL('http://example.com/favicon.ico')
+  })
+
+  if (response.error) {
+    return t.fail()
+  }
+
+  const favicon = await readFile(path.resolve('src/favicon.ico'))
+  t.true(response.content.equals(favicon))
 })
 
 test('responds to a request for any file inside of src', async t => {
