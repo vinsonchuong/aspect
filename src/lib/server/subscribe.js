@@ -6,7 +6,7 @@ import { cachedByClient } from './messages'
 
 export type Request = { method: 'GET', url: URL, modified?: Date }
 export type Response =
-  | { size: number, content: string, type: string, modified: Date }
+  | { size: number, content: Buffer, type: string, modified: Date }
   | { error: 'Not Found' }
 
 export default function(

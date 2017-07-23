@@ -9,7 +9,7 @@ const firstRequest = new http.IncomingMessage()
 const firstResponse = {
   size: 0,
   modified: firstRequestDate,
-  content: '',
+  content: Buffer.from(''),
   type: 'txt'
 }
 
@@ -18,7 +18,7 @@ cachedRequest.headers['if-modified-since'] = firstRequestDate.toUTCString()
 
 const newResponse = {
   size: 0,
-  content: '',
+  content: Buffer.from(''),
   type: 'txt',
   modified: new Date('2017-01-02')
 }

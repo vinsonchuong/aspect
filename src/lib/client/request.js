@@ -7,7 +7,7 @@ type Response =
   | {
       status: 'OK',
       size: number,
-      content: string,
+      content: Buffer,
       type: 'html',
       modified: Date
     }
@@ -27,7 +27,7 @@ export default async function(request: Request): Promise<Response> {
       return {
         status: 'OK',
         size: Number(response.headers.get('Content-Length')),
-        content: await response.text(),
+        content: await response.buffer(),
         type: mime.extension(response.headers.get('Content-Type')),
         modified: new Date(response.headers.get('Last-Modified'))
       }

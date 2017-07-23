@@ -11,7 +11,10 @@ import {
 test('making a temporary directory for storing files', async t => {
   const directoryPath = await makeTmpDirectory()
   await writeIntoDirectory(directoryPath, 'foo', 'foo')
-  t.is(await readFile(path.join(directoryPath, 'foo')), 'foo')
+
+  const fileBuffer = await readFile(path.join(directoryPath, 'foo'))
+  t.is(fileBuffer.toString(), 'foo')
+
   await remove(directoryPath)
 })
 
