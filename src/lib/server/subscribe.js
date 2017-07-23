@@ -34,12 +34,14 @@ export default function(
         httpResponse.writeHead(200, {
           'Content-Type': mimeType,
           'Content-Encoding': 'gzip',
+          'Cache-Control': 'no-cache',
           'Last-Modified': response.modified.toUTCString()
         })
         httpResponse.end(await compress(response.content))
       } else {
         httpResponse.writeHead(200, {
           'Content-Type': mimeType,
+          'Cache-Control': 'no-cache',
           'Last-Modified': response.modified.toUTCString()
         })
         httpResponse.end(response.content)
