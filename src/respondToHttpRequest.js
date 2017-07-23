@@ -30,7 +30,6 @@ async function buildResponse(
   }
 
   return {
-    size: fileStats.size,
     content: await readFile(filePath),
     type: path.extname(filePath).slice(1),
     modified: fileStats.mtime

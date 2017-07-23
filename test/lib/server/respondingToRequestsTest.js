@@ -20,7 +20,6 @@ test('responding to requests', async t => {
     t.is(request.url.href, `http://127.0.0.1:${server.port}/`)
 
     return {
-      size: 37,
       content: Buffer.from('<!doctype html><meta charset="utf-8">'),
       type: 'html',
       modified: new Date('2017-04-01')
@@ -35,7 +34,6 @@ test('responding to requests', async t => {
     return
   }
 
-  t.is(response.size, 37)
   t.true(response.content.includes('html'))
   t.is(response.type, 'html')
   t.deepEqual(response.modified, new Date('2017-04-01'))
@@ -44,7 +42,6 @@ test('responding to requests', async t => {
 test('responding to requests for unmodified content', async t => {
   const { server } = t.context
   subscribe(server, request => ({
-    size: 37,
     content: Buffer.from('<!doctype html><meta charset="utf-8">'),
     type: 'html',
     modified: new Date('2017-04-01T00:00:00.999Z')

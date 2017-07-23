@@ -15,7 +15,6 @@ test('responds to a request for root with index.html', async t => {
     return t.fail()
   }
 
-  t.is(response.size, Buffer.byteLength(response.content))
   t.true(response.content.includes('<!doctype html>'))
   t.is(response.type, 'html')
   t.true(response.modified instanceof Date)
