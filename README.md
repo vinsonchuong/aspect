@@ -545,3 +545,4 @@ static file server, one that can:
 * Allow the browser to cache unchanged files
 * Compress where appropriate
 * Serve multiple requests at once
+* Use HTTPS while developing
