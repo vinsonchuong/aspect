@@ -2,6 +2,7 @@
 import type { Server } from './'
 import { URL } from 'url'
 import { gzip } from 'zlib'
+import compressible from 'compressible'
 import mime from 'mime'
 import { cachedByClient } from './messages'
 
@@ -27,13 +28,22 @@ export default function(
       httpResponse.writeHead(304)
       httpResponse.end()
     } else {
-      httpResponse.writeHead(200, {
-        'Content-Type': mime.lookup(response.type),
-        'Content-Encoding': 'gzip',
-        'Last-Modified': response.modified.toUTCString()
-      })
+      const mimeType = mime.lookup(response.type)
 
-      httpResponse.end(await compress(response.content))
+      if (compressible(mimeType)) {
+        httpResponse.writeHead(200, {
+          'Content-Type': mimeType,
+          'Content-Encoding': 'gzip',
+          'Last-Modified': response.modified.toUTCString()
+        })
+        httpResponse.end(await compress(response.content))
+      } else {
+        httpResponse.writeHead(200, {
+          'Content-Type': mimeType,
+          'Last-Modified': response.modified.toUTCString()
+        })
+        httpResponse.end(response.content)
+      }
     }
   })
 }

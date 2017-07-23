@@ -8,6 +8,7 @@
   "dependencies": {
     "babel-preset-diff": "^0.0.3",
     "babel-register": "^6.24.1",
+    "compressible": "^2.0.10",
     "dedent": "^0.7.0",
     "fs-extra": "^3.0.1",
     "get-port": "^3.1.0",
