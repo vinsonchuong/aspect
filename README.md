@@ -546,3 +546,6 @@ static file server, one that can:
 * Compress where appropriate
 * Serve multiple requests at once
 * Use HTTPS while developing
+
+With those features in place, the server then needs to be able to compile and
+serve JavaScript code and external packages to the browser.

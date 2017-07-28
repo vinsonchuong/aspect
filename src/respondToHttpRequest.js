@@ -17,8 +17,8 @@ export default async function(request: Request): Promise<Response> {
   }
 }
 
-function isDirectory(fileStats: ?Stats) {
-  return fileStats && fileStats.isDirectory()
+function isDirectory(fileStats: ?Stats): boolean {
+  return Boolean(fileStats && fileStats.isDirectory())
 }
 
 async function buildResponse(
