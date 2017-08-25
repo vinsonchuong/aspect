@@ -549,3 +549,112 @@ static file server, one that can:
 
 With those features in place, the server then needs to be able to compile and
 serve JavaScript code and external packages to the browser.
+
+In implementing this set of features, I'm finding that the logic to figure out
+what content to use to respond to a request is complex. Not only is the mapping
+from URL to filesystem path complex, the processing of the content is also
+complex. I need to find the right boundaries to manage this complexity.
+
+##### Extracting Lib Packages
+At this point, I'm finding that the `src` directory is becoming large and
+difficult to reason about. The directory is cluttered with modules that are
+feature-complete and do not need to be modified during feature development.
+
+I want to try an experiment where I partition these modules away from the
+application code.
+
+After extraction, the directory structure of the codebase now looks like:
+
+* lib
+  * browser
+  * cli
+  * compiler
+  * file
+  * middleware
+  * responder
+  * transport
+* src
+  * adapters
+    * cli
+      * serve.js
+    * server
+      * index.js
+      * serve.js
+  * favicon.ico
+  * index.css
+  * index.html
+  * index.js
+* test
+  * adapters
+    * cli
+      * serveTest.js
+  * addingABlogPostTest.js
+  * helpers
+    * index.js
+    * useServer.js
+
+Each library is essentially its own package with its own dependencies. For
+example:
+
+* file
+  * ava.js
+  * package.json
+  * src
+    * index.js
+    * makeTmpDirectory.js
+    * readFile.js
+    * stat.js
+    * writeIntoDirectory.js
+  * test
+    * makingTemporaryDirectoriesTest.js
+    * readingFileMetadataTest.js
+
+The root `package.json` file now lists the following dependencies:
+
+```json
+{
+  "dependencies": {
+    "babel-preset-diff": "^1.0.3",
+    "babel-register": "^6.26.0",
+    "cli": "link:./lib/cli",
+    "compiler": "link:./lib/compiler",
+    "middleware": "link:./lib/middleware",
+    "react": "^15.6.1",
+    "responder": "link:./lib/responder",
+    "server": "link:./lib/server",
+    "transport": "link:./lib/transport"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "browser": "link:./lib/browser",
+    "flow-bin": "^0.53.1",
+    "flow-typed": "^2.1.5",
+    "standard-esnext": "^3.0.3"
+  }
+}
+```
+
+The `file` library lists its own dependencies:
+
+```json
+{                                                                                                                                          
+  "dependencies": {
+    "dedent": "^0.7.0",
+    "fs-extra": "^4.0.0",
+    "tempy": "^0.1.0"
+  },
+  "devDependencies": {
+  }
+}
+```
+
+With this partition between library code and application code, there is now less
+mental overhead--fewer files to keep track of--when developing features.
+
+Also, during the extraction, I separated the server module into a transport
+layer, a respnder layer, and a middleware layer. The transport layer is
+feature-complete and should need no further modification. The middleware layer
+can be extended by adding new middleware without having to modify existing
+middleware. New responders can similarly be added without having to modify
+existing responders. These layers follow the
+[open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).

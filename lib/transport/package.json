@@ -1,0 +1,15 @@
+{
+  "name": "transport",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.js",
+  "dependencies": {
+    "compressible": "^2.0.11",
+    "get-port": "^3.1.0",
+    "header-case-normalizer": "^1.0.3",
+    "node-fetch": "^2.0.0-alpha.8"
+  },
+  "devDependencies": {
+    "cli": "link:../cli"
+  }
+}

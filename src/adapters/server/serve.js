@@ -1,10 +1,23 @@
 /* @flow */
-import type { Server } from 'aspect/src/lib/server'
-import { listen, subscribe } from 'aspect/src/lib/server'
-import respondToHttpRequest from 'aspect/src/respondToHttpRequest'
+import type { Server } from 'transport'
+import * as path from 'path'
+import { listen, subscribe } from 'transport'
+import { staticFile } from 'responder'
+import {
+  apply as applyMiddleware,
+  compose as composeMiddleware,
+  cache,
+  compress
+} from 'middleware'
 
 export default async function(port: ?number): Promise<Server> {
   const server = await listen(port)
-  subscribe(server, respondToHttpRequest)
+  subscribe(
+    server,
+    applyMiddleware(
+      composeMiddleware(cache, compress),
+      staticFile(path.resolve('src'))
+    )
+  )
   return server
 }

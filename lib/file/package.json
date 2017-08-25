@@ -1,0 +1,13 @@
+{
+  "name": "file",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.js",
+  "dependencies": {
+    "dedent": "^0.7.0",
+    "fs-extra": "^4.0.0",
+    "tempy": "^0.1.0"
+  },
+  "devDependencies": {
+  }
+}

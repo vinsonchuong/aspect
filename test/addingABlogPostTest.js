@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { useBrowser, useServer } from 'aspect/test/helpers'
-import { navigate, clickOn, fillIn, read } from 'aspect/src/lib/browser'
+import { navigate, clickOn, fillIn, read } from 'browser'
 
 useBrowser()
 useServer()
