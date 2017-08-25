@@ -32,7 +32,6 @@
     ]
   },
   "ava": {
-    "concurrency": 3,
     "babel": "inherit",
     "require": [
       "babel-register"
