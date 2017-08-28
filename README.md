@@ -658,3 +658,17 @@ can be extended by adding new middleware without having to modify existing
 middleware. New responders can similarly be added without having to modify
 existing responders. These layers follow the
 [open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
+
+I took this process one step further and extracted a `test` library for running
+and defining automated tests. Because I chose to use an off-the-shelf tool
+instead of implementing one from scratch, encapsulating it has proven difficult.
+With the large surface area provided by the tool and the number of existing test
+cases in the codebase, it's an interesting challenge.
+
+Interesting questions and learnings I've encountered during this exercise are:
+
+* Should these libraries be open-sourced as seprate projects?
+* How should I document the APIs of these libaries? Are test cases enough?
+* Am I able to effectively wrap existing tools with large APIs?
+* Do I need to manage dependencies between the libraries?
+* Which test cases do I run when I modify application or library code?

@@ -1,0 +1,14 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.js",
+  "dependencies": {
+    "ava": "^0.22.0",
+    "babel-preset-diff": "^1.0.3",
+    "babel-register": "^6.26.0",
+    "pkg-conf": "^2.0.0"
+  },
+  "devDependencies": {
+  }
+}

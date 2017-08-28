@@ -1,5 +1,5 @@
 /* @flow */
-import test from 'ava'
+import test from 'test'
 import { useBrowser, useServer } from 'aspect/test/helpers'
 import { navigate, clickOn, fillIn, read } from 'browser'
 

@@ -2,12 +2,10 @@
   "name": "aspect",
   "private": true,
   "scripts": {
-    "test": "standard -v --fix && flow && ava",
-    "start": "node -r babel-register src/adapters/cli/serve.js $PORT"
+    "test": "cli lint type test",
+    "start": "cli serve"
   },
   "dependencies": {
-    "babel-preset-diff": "^1.0.3",
-    "babel-register": "^6.26.0",
     "cli": "link:./lib/cli",
     "compiler": "link:./lib/compiler",
     "middleware": "link:./lib/middleware",
@@ -17,11 +15,13 @@
     "transport": "link:./lib/transport"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "babel-preset-diff": "^1.0.3",
+    "babel-register": "^6.26.0",
     "browser": "link:./lib/browser",
     "flow-bin": "^0.53.1",
     "flow-typed": "^2.1.5",
-    "standard-esnext": "^3.0.3"
+    "standard-esnext": "^3.0.3",
+    "test": "link:./lib/test"
   },
   "engines": {
     "node": ">=8.1.0"
@@ -29,12 +29,6 @@
   "babel": {
     "presets": [
       "diff"
-    ]
-  },
-  "ava": {
-    "babel": "inherit",
-    "require": [
-      "babel-register"
     ]
   }
 }
