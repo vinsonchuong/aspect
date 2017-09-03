@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* @flow */
 import { serve } from 'aspect/src/adapters/server'
 

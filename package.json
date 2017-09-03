@@ -2,8 +2,8 @@
   "name": "aspect",
   "private": true,
   "scripts": {
-    "test": "cli lint type test",
-    "start": "cli serve"
+    "test": "lint.js && type.js && test.js",
+    "start": "serve.js"
   },
   "dependencies": {
     "cli": "link:./lib/cli",
