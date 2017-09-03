@@ -10,8 +10,10 @@ import {
   compress
 } from 'middleware'
 
-export default async function(port: ?number): Promise<Server> {
-  const server = await listen(port)
+export default async function(
+  options: { port?: ?number } = {}
+): Promise<Server> {
+  const server = await listen(options)
   subscribe(
     server,
     applyMiddleware(
