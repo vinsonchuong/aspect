@@ -672,3 +672,43 @@ Interesting questions and learnings I've encountered during this exercise are:
 * Am I able to effectively wrap existing tools with large APIs?
 * Do I need to manage dependencies between the libraries?
 * Which test cases do I run when I modify application or library code?
+
+##### Serving Static Assets via HTTP/2
+In preparation for serving many small JavaScript dependencies to the browser
+in development, I'll focus now on extending the `transport` library to be able
+to serve via HTTP/2 and HTTPS.
+
+###### Generating a Trusted Certificate
+[Let's Encrypt](https://letsencrypt.org/) provides free and trusted X.509
+certificates. It also provides tooling for automatically generating and renewing
+certificates. It also verifies ownership over a domain before granting a
+certificate.
+
+Running a development server that can serve requests over HTTPS requires either
+a self-signed certificate, which would require modification of browser security
+settings, or a trusted certificate associated with a publicly accessible
+hostname.
+
+I've chosen to use a subdomain of my personal domain (`dev.vinsonchuong.net`) to
+request a certificate. My domain is registered using
+[Google Domains](https://domains.google) and served using
+[Cloudflare](https://www.cloudflare.com/). I've made sure to set the nameservers
+correctly and enable DNSSEC. I've created an A record pointing `dev` to
+`127.0.0.1`, which will allow me to request a certificate for
+`dev.vinsonchuong.net` and use it for development.
+
+Given that my domain is configured as above, [certbot](https://certbot.eff.org/)
+is able to automatically request and renew trusted certificates.
+
+###### Storing Secrets for Use in Different Environments
+The codebase will depend on the certificate I've generated. I'll need to ensure
+that wherever the code needs to run, the certificate is accessible. However,
+certificates need to remain private as they are used to validate identity.
+
+[The Twelve-Factor App](https://12factor.net/config) recommends storing such
+secrets as environment variables.
+
+I've chosen to store the secrets in a `.env` file, which when executed, will
+export them as environment variables. This file will not be committed to the
+repository. To make the secrets available to CI, they are encrypted and
+committed as `.env.enc`.
