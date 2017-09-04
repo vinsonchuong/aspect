@@ -1647,6 +1647,10 @@ encoding@^0.1.11:
   dependencies:
     iconv-lite "~0.4.13"
 
+"env@link:./lib/env":
+  version "0.0.0"
+  uid ""
+
 equal-length@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/equal-length/-/equal-length-1.0.1.tgz#21ca112d48ab24b4e1e7ffc0e5339d31fdfc274c"

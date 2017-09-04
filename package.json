@@ -8,6 +8,7 @@
   "dependencies": {
     "cli": "link:./lib/cli",
     "compiler": "link:./lib/compiler",
+    "env": "link:./lib/env",
     "middleware": "link:./lib/middleware",
     "react": "^15.6.1",
     "responder": "link:./lib/responder",
