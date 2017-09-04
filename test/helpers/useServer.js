@@ -5,7 +5,7 @@ import { serve, close } from 'aspect/src/adapters/server'
 export default function(): void {
   test.beforeEach(async t => {
     const server = await serve()
-    Object.assign(t.context, { server })
+    t.context = { ...t.context, server }
   })
 
   test.afterEach.always(async t => {
