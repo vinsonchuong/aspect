@@ -9,5 +9,6 @@
     "tempy": "^0.1.0"
   },
   "devDependencies": {
+    "test": "link:../test"
   }
 }

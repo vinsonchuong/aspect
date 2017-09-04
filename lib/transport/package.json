@@ -10,6 +10,7 @@
     "node-fetch": "^2.0.0-alpha.8"
   },
   "devDependencies": {
-    "cli": "link:../cli"
+    "cli": "link:../cli",
+    "test": "link:../test"
   }
 }

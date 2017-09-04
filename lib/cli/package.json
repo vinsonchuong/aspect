@@ -6,5 +6,6 @@
   "dependencies": {
   },
   "devDependencies": {
+    "test": "link:../test"
   }
 }
