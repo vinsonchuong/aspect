@@ -8,7 +8,7 @@ test('manually starting the server', async t => {
   t.context = { childProcess }
 
   await waitForOutput(childProcess, 'Running server')
-  const match = childProcess.stdout.match(/(http:.*)/)
+  const match = childProcess.stdout.match(/(https:.*)/)
 
   if (!match) {
     t.fail()

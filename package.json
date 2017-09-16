@@ -8,6 +8,7 @@
   "dependencies": {
     "cli": "link:./lib/cli",
     "compiler": "link:./lib/compiler",
+    "conversion": "link:./lib/conversion",
     "env": "link:./lib/env",
     "middleware": "link:./lib/middleware",
     "react": "^15.6.1",
@@ -19,9 +20,9 @@
     "babel-preset-diff": "^1.0.3",
     "babel-register": "^6.26.0",
     "browser": "link:./lib/browser",
-    "flow-bin": "^0.53.1",
+    "flow-bin": "^0.54.0",
     "flow-typed": "^2.1.5",
-    "standard-esnext": "^3.0.3",
+    "standard-esnext": "^3.1.0",
     "test": "link:./lib/test"
   },
   "engines": {

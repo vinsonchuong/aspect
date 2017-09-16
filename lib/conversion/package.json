@@ -1,0 +1,11 @@
+{
+  "name": "conversion",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "test": "link:../test"
+  }
+}
