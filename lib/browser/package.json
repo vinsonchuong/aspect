@@ -7,7 +7,5 @@
     "selenium-adapter": "^0.2.6"
   },
   "devDependencies": {
-    "file": "link:../file",
-    "test": "link:../test"
   }
 }

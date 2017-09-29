@@ -9,9 +9,5 @@
     "header-case-normalizer": "^1.0.3"
   },
   "devDependencies": {
-    "cli": "link:../cli",
-    "conversion": "link:../conversion",
-    "env": "link:../env",
-    "test": "link:../test"
   }
 }

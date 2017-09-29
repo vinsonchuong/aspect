@@ -5,7 +5,6 @@
   "main": "./src/index.js",
   "dependencies": {
     "babel-preset-diff": "^1.0.2",
-    "file": "link:../file",
     "resolve": "^1.4.0",
     "rollup": "^0.45.2",
     "rollup-plugin-babel": "^2.7.1",
@@ -13,6 +12,5 @@
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "devDependencies": {
-    "test": "link:../test"
   }
 }
