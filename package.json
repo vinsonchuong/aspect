@@ -5,7 +5,7 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "lint.js && type.js && test.js",
+    "test": "lint.js && type.js && runtests",
     "start": "serve.js"
   },
   "dependencies": {

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.js",
+  "bin": {
+    "runtests": "./src/bin.js"
+  },
   "dependencies": {
     "ava": "^0.22.0",
     "babel-preset-diff": "^1.0.3",
