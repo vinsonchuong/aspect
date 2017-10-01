@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "dependencies": {
     "babel-preset-diff": "^1.0.2",
+    "babel-register": "^6.26.0",
     "resolve": "^1.4.0",
     "rollup": "^0.45.2",
     "rollup-plugin-babel": "^2.7.1",
