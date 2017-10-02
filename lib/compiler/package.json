@@ -7,12 +7,12 @@
     "run": "./src/run.js"
   },
   "dependencies": {
-    "babel-preset-diff": "^1.0.2",
+    "babel-preset-diff": "^1.0.3",
     "babel-register": "^6.26.0",
     "resolve": "^1.4.0",
-    "rollup": "^0.45.2",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.1.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.1",
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "devDependencies": {

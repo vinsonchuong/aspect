@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "dependencies": {
     "compressible": "^2.0.11",
-    "get-port": "^3.1.0",
+    "get-port": "^3.2.0",
     "header-case-normalizer": "^1.0.3"
   },
   "devDependencies": {
