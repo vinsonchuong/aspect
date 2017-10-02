@@ -6,8 +6,6 @@ cache: yarn
 addons:
   chrome: stable
 before_install:
-  - export DISPLAY=:99.0
-  - Xvfb :99 -screen 0 1280x800x24 &>/dev/null &
   - openssl aes-256-cbc -K $encrypted_6119489eaa6d_key -iv $encrypted_6119489eaa6d_iv -in .env.enc -out .env -d
   - source .env
   - npm install -g yarn
