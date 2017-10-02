@@ -12,18 +12,11 @@
     "react": "^15.6.1"
   },
   "devDependencies": {
-    "babel-preset-diff": "^1.0.3",
-    "babel-register": "^6.26.0",
     "flow-bin": "^0.54.0",
     "flow-typed": "^2.1.5",
     "standard-esnext": "^3.1.0"
   },
   "engines": {
     "node": ">=8.1.0"
-  },
-  "babel": {
-    "presets": [
-      "diff"
-    ]
   }
 }

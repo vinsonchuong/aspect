@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env run
 /* @flow */
 import { parseEnv, required } from 'env'
 import { serve } from 'aspect/src/adapters/server'
