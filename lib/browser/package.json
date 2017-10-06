@@ -4,7 +4,7 @@
   "private": true,
   "main": "./src/index.js",
   "dependencies": {
-    "selenium-adapter": "^0.2.6"
+    "selenium-adapter": "^0.2.7"
   },
   "devDependencies": {
   }
