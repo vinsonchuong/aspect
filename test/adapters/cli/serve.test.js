@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { makeRequest } from 'transport'
+import { connect, disconnect, sendRequest } from 'transport'
 import { spawn, kill, waitForOutput } from 'cli'
 
 test('manually starting the server', async t => {
@@ -8,19 +8,21 @@ test('manually starting the server', async t => {
   t.context = { childProcess }
 
   await waitForOutput(childProcess, 'Running server')
-  const match = childProcess.stdout.match(/(https:.*)/)
+  const match = childProcess.stdout.match(/https:\/\/(.*)/)
 
   if (!match) {
     t.fail()
     return
   }
 
-  const response = await makeRequest({
+  const session = connect(match[1])
+  const response = await sendRequest(session, {
     method: 'GET',
-    url: match[1],
+    url: '/',
     headers: {},
     body: Buffer.from('')
   })
+  await disconnect(session)
 
   t.true(response.body.includes('<!doctype html>'))
 })
