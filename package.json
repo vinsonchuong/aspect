@@ -5,15 +5,13 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "lint && type.js && runtests",
+    "test": "lint && checktypes && runtests",
     "start": "serve.js"
   },
   "dependencies": {
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "flow-bin": "^0.56.0",
-    "flow-typed": "^2.2.0"
   },
   "engines": {
     "node": ">=8.1.0"

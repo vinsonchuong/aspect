@@ -1,12 +1,13 @@
 {
-  "name": "lint",
+  "name": "type",
   "version": "0.0.0",
   "private": true,
   "bin": {
-    "lint": "./src/lint.js"
+    "checktypes": "./src/checktypes.js"
   },
   "dependencies": {
-    "standard-esnext": "^4.0.1"
+    "flow-bin": "^0.56.0",
+    "flow-typed": "^2.2.0"
   },
   "devDependencies": {
   }
