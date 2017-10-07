@@ -1,0 +1,14 @@
+{
+  "name": "lint",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.js",
+  "bin": {
+    "lint": "./src/lint.js"
+  },
+  "dependencies": {
+    "standard-esnext": "^4.0.1"
+  },
+  "devDependencies": {
+  }
+}
