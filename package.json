@@ -5,6 +5,7 @@
     "lib/*"
   ],
   "scripts": {
+    "postinstall": "updatelibdefs",
     "test": "lint && checktypes && runtests",
     "start": "serve.js"
   },

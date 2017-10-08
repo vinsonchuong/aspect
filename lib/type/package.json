@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "bin": {
-    "checktypes": "./src/checktypes.js"
+    "checktypes": "./src/checktypes.js",
+    "updatelibdefs": "./src/updatelibdefs.js"
   },
   "dependencies": {
     "flow-bin": "^0.56.0",
-    "flow-typed": "^2.2.0"
+    "flow-typed": "^2.2.0",
+    "glob": "^7.1.2"
   },
   "devDependencies": {
   }
